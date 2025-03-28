@@ -1,12 +1,14 @@
 import { assets } from "@/assets/assets";
 import Image from "next/image";
 import React from "react";
-import { useClerk,UserButton } from "@clerk/nextjs";
+import { useClerk, UserButton } from "@clerk/nextjs";
+import { useAppContext } from "@/context/AppContext";
+import ChatLabel from "./ChatLabel";
 
 const Sidebar = ({ expand, setExpand }) => {
+  const { openSignIn } = useClerk();
+  const { user } = useAppContext();
 
-  const {openSignIn} = useClerk();
-  
   return (
     <div
       className={`flex flex-col justify-between bg-[#212327] pt-7 transition-all z-50 max-md:absolute max-md:h-screen ${
@@ -83,6 +85,7 @@ const Sidebar = ({ expand, setExpand }) => {
         >
           <p className="my-1">Recents</p>
           {/* chat label */}
+          <ChatLabel/>
         </div>
       </div>
 
@@ -124,12 +127,21 @@ const Sidebar = ({ expand, setExpand }) => {
           )}
         </div>
 
-        <div onClick={openSignIn}
+        <div
+          onClick={user ? null : openSignIn}
           className={`flex items-center ${
             expand ? "hover:bg-white/10 rounded-lg" : "justify-center w-full"
           } gap-3 text-white/60 text-sm p-2 m-2 cursor-pointer`}
         >
-          <Image className="w-7" src={assets.profile_icon} alt="profile_icon" />
+          {user ? (
+            <UserButton />
+          ) : (
+            <Image
+              className="w-7"
+              src={assets.profile_icon}
+              alt="profile_icon"
+            />
+          )}
           {expand && <span>My Profile</span>}
         </div>
       </div>
