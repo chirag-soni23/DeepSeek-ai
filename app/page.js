@@ -38,7 +38,7 @@ export default function Home() {
                   alt="logo_icon"
                   className="h-16 w-16"
                 />{" "}
-                <p className="text-2xl font-medium">Hi, I'm DeepSeek.</p>
+                <p className="text-2xl font-medium">Hi, I&apos;m DeepSeek.</p>
               </div>
               <p className="text-sm mt-2">How can I help you today ?</p>
             </>
